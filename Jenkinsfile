@@ -16,8 +16,8 @@ pipeline {
         stage("Stage 1: Git Clone") {
             steps {
                 sh '''
-                [ -d Talent_Bridge_K8s ] && rm -rf Talent_Bridge_K8s
-                git clone https://github.com/ritik-rkg/Talent_Bridge_K8s.git
+                [ -d Talent_Bridge_Kubernetes ] && rm -rf Talent_Bridge_Kubernetes
+                git clone https://github.com/ritik-rkg/Talent_Bridge_Kubernetes.git
                 '''
             }
         }
@@ -37,7 +37,7 @@ pipeline {
         stage("Stage 3: Build frontend") {
             steps {
                 sh '''
-                cd Talent_Bridge_K8s/frontend
+                cd Talent_Bridge_Kubernetes/frontend
                 npm install
                 npm run build
                 '''
@@ -55,7 +55,7 @@ pipeline {
         stage("Stage 5: Creating Docker Image for frontend") {
             steps {
                 sh '''
-                cd Talent_Bridge_K8s/frontend
+                cd Talent_Bridge_Kubernetes/frontend
                 docker build -t ritikgupta0114/frontend:latest .
                 '''
             }
@@ -80,7 +80,7 @@ pipeline {
         stage("Stage 8: Creating Docker Image for backend") {
             steps {
                 sh '''
-                cd Talent_Bridge_K8s/backend
+                cd Talent_Bridge_Kubernetes/backend
                 docker build -t ritikgupta0114/backend:latest .
                 '''
             }
@@ -108,7 +108,7 @@ pipeline {
         stage("Stage 11: Ansible"){
             steps {
                 sh '''
-                cd Talent_Bridge_K8s
+                cd Talent_Bridge_Kubernetes
                 echo "$VAULT_PASS" > /tmp/vault_pass.txt
                 chmod 600 /tmp/vault_pass.txt
                 ansible-playbook -i inventory-k8 --vault-password-file /tmp/vault_pass.txt playbook-k8-new.yaml
