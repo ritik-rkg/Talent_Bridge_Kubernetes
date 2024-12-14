@@ -1,7 +1,7 @@
 pipeline {
     environment {
         DOCKERHUB_CRED = credentials("Docker_Credentials_ritik")
-        MONGO_URI = "mongodb+srv://ritikgupta1424:WRdnbS610yMdL6lT@cluster0.vqbikv5.mongodb.net/"
+        MONGO_URI = credentials("mongo-uri")
         SECRET_KEY = credentials("cloud_secret_key")
         CLOUD_NAME = credentials("cloud_name")
         API_KEY = credentials("cloud_api_key")
