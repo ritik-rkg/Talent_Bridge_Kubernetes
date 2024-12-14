@@ -15,7 +15,7 @@ const morganFormat = ":method :url :status :response-time ms";
 
 dotenv.config({});
 
-const app = express();
+const app = express();       
 
 // Prometheus metrics setup
 client.collectDefaultMetrics(); // Collect default metrics automatically
